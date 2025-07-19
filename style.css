@@ -1,0 +1,422 @@
+/* --- Synthwave Dark Color Palette --- */
+:root {
+    --bg-main: #0d0221;
+    --phone-body: #262a4c;
+    --screen-bg: #0f0524;
+    --screen-border: #3f3e64;
+    --text-accent: #00f6ff;
+    --key-dark: #2d2c54;
+    --key-shadow: #1a1a3a;
+    --nav-key: #4a497c;
+    --nav-key-shadow: #302f5b;
+    --instruction-bg: #1c1c3c;
+    --instruction-border: #00f6ff;
+    --instruction-text: #c0c0e0;
+}
+
+/* --- Layout Styles --- */
+body {
+    background-color: var(--bg-main);
+    font-family: 'Press Start 2P', cursive;
+    overflow: hidden;
+    position: relative;
+    min-height: 100vh;
+}
+
+#root {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.instruction-box {
+    position: absolute;
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%);
+}
+
+/* --- General Styles --- */
+.phone-container {
+    width: 380px;
+    height: 750px;
+    background-color: var(--phone-body);
+    border-radius: 30px;
+    padding: 25px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), inset 0 0 10px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+}
+
+.screen-border {
+    background-color: var(--screen-border);
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.6);
+    flex-grow: 1;
+    display: flex;
+    min-height: 0;
+}
+
+/* --- Screen and Transition Styles (Corrected) --- */
+.screen {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--screen-bg);
+    color: var(--text-accent);
+    flex-grow: 1;
+    border-radius: 5px;
+    border: 4px solid var(--screen-border);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.page-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+    font-size: 12px;
+    line-height: 1.6;
+    overflow-y: auto;
+}
+
+/* Special case for boot screen to center content */
+#boot-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* Animation Classes */
+.right-enter {
+    transform: translateX(100%);
+}
+
+.right-enter-active {
+    transform: translateX(0);
+    transition: transform 300ms ease-in-out;
+}
+
+.right-exit-active {
+    transform: translateX(-100%);
+    transition: transform 300ms ease-in-out;
+}
+
+.left-enter {
+    transform: translateX(-100%);
+}
+
+.left-enter-active {
+    transform: translateX(0);
+    transition: transform 300ms ease-in-out;
+}
+
+.left-exit-active {
+    transform: translateX(100%);
+    transition: transform 300ms ease-in-out;
+}
+
+/* --- Other Styles --- */
+#game-canvas {
+    background-color: var(--screen-bg);
+    width: 100%;
+    height: 100%;
+}
+
+.page-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.page-container::-webkit-scrollbar-track {
+    background: #2d2c54;
+}
+
+.page-container::-webkit-scrollbar-thumb {
+    background: var(--text-accent);
+    border-radius: 5px;
+}
+
+.screen-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--text-accent);
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+.signal-bar,
+.battery-level,
+.battery-icon::after {
+    background-color: var(--text-accent);
+}
+
+.battery-icon {
+    border: 2px solid var(--text-accent);
+}
+
+.content-title {
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--text-accent);
+    padding-bottom: 5px;
+}
+
+.menu-item {
+    padding: 5px 0;
+}
+
+.menu-item.selected {
+    background-color: var(--text-accent);
+    color: var(--screen-bg);
+}
+
+.keypad {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.key {
+    background-color: var(--key-dark);
+    border: none;
+    border-radius: 10px;
+    height: 45px;
+    font-size: 16px;
+    color: var(--instruction-text);
+    box-shadow: 0 4px var(--key-shadow);
+    font-family: 'Press Start 2P', cursive;
+}
+
+.key:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px var(--key-shadow);
+}
+
+.nav-key {
+    background-color: var(--nav-key);
+    color: white;
+    box-shadow: 0 4px var(--nav-key-shadow);
+}
+
+.nav-key:active {
+    box-shadow: 0 2px var(--nav-key-shadow);
+}
+
+.instruction-box {
+    width: 240px;
+    padding: 20px;
+    background-color: var(--instruction-bg);
+    border: 1px solid var(--instruction-border);
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 246, 255, 0.15);
+    color: var(--instruction-text);
+    font-family: monospace, sans-serif;
+}
+
+.instruction-box h3 {
+    text-align: center;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 14px;
+    color: white;
+    margin-top: 0;
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed var(--nav-key);
+}
+
+.instruction-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.instruction-item .action {
+    flex-grow: 1;
+    font-size: 14px;
+    margin-left: 15px;
+}
+
+.key-icon {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 30px;
+    height: 30px;
+    padding: 0 5px;
+    border: 1px solid var(--nav-key-shadow);
+    border-radius: 5px;
+    background: var(--nav-key);
+    box-shadow: 0 2px 0 var(--nav-key-shadow);
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+}
+
+.keys-group {
+    display: flex;
+    gap: 6px;
+}
+
+.enter-key {
+    font-size: 20px;
+}
+
+.space-bar {
+    width: 100px;
+}
+
+.signal,
+.battery {
+    display: flex;
+    align-items: flex-end;
+}
+
+.signal-bar {
+    width: 5px;
+    margin-left: 2px;
+}
+
+.battery-icon {
+    width: 25px;
+    height: 12px;
+    border-radius: 3px;
+    position: relative;
+}
+
+.battery-icon::after {
+    content: '';
+    position: absolute;
+    right: -5px;
+    top: 2px;
+    width: 3px;
+    height: 4px;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+}
+
+.battery-level {
+    height: 100%;
+    width: 80%;
+}
+
+.center-nav-cluster {
+    grid-column: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+}
+
+.select-key {
+    width: 60px;
+    height: 40px;
+    border-radius: 8px;
+}
+
+.arrow-key {
+    width: 40px;
+    height: 30px;
+    border-radius: 6px;
+}
+
+.side-keys {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+}
+
+.list-item {
+    margin-bottom: 10px;
+}
+
+.list-title {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.list-subtitle {
+    font-size: 10px;
+    opacity: 0.8;
+    margin-bottom: 5px;
+}
+
+.list-desc {
+    font-size: 10px;
+}
+
+.link {
+    text-decoration: underline;
+    cursor: pointer;
+    color: var(--text-accent);
+}
+
+#hands-svg {
+    width: 150px;
+    height: auto;
+}
+
+.hand {
+    animation-duration: 1.5s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in-out;
+}
+
+#hand-left {
+    animation-name: move-left;
+}
+
+#hand-right {
+    animation-name: move-right;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes move-left {
+    from {
+        transform: translateX(-50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes move-right {
+    from {
+        transform: translateX(50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+#boot-text {
+    margin-top: 20px;
+    font-size: 14px;
+    opacity: 0;
+    animation: fadeIn 1s 1.5s forwards;
+}
