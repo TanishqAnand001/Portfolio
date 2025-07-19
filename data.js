@@ -20,7 +20,7 @@ const portfolioData = {
     ],
     skills: {
         proficient: ['Python', 'ReactJS'],
-        knowledge: ['C++', 'Java', 'C', 'TypeScript', 'HTML', 'CSS', 'REST APIs', 'SQL', 'NoSQL', 'Git', 'GitHub']
+        knowledge: ['C++', 'Java', 'C', 'Javascript', 'TypeScript', 'HTML', 'CSS', 'REST APIs', 'SQL', 'NoSQL', 'Git', 'GitHub']
     },
     certificates: ['Oracle Cloud AI Foundations Associate', 'Oracle Cloud Generative AI Professional']
 };
