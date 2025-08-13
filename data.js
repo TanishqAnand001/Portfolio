@@ -3,7 +3,7 @@ const portfolioData = {
     contact: {
         email: 'tanishqanand003@gmail.com',
         phone: '7982169761',
-        linkedin: 'https://linkedin.com/in/tanishq-anand',
+        linkedin: 'https://www.linkedin.com/in/tanishq-anand-850b4a247/',
         github: 'https://github.com/TanishqAnand001'
     },
     objective: "Final-year Computer Science student at VIT Vellore with strong problem-solving skills and hands-on experience in web development and software design. Seeking Software Engineering roles to contribute to impactful development teams.",
