@@ -18,23 +18,26 @@
 body {
     background-color: var(--bg-main);
     font-family: 'Press Start 2P', cursive;
-    overflow: hidden;
-    position: relative;
+    margin: 0;
+    padding: 0;
     min-height: 100vh;
+    overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
+/* NEW: Flexbox container for responsiveness */
+.main-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem;
+    gap: 3rem;
+    flex-wrap: wrap; /* Allow wrapping on very small screens */
+}
+
+/* REMOVED: No longer need absolute positioning for #root */
 #root {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.instruction-box {
-    position: absolute;
-    top: 50%;
-    left: 25%;
-    transform: translate(-50%, -50%);
+    /* Styles for the root container if any are needed */
 }
 
 /* --- General Styles --- */
@@ -47,6 +50,7 @@ body {
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), inset 0 0 10px rgba(0, 0, 0, 0.4);
     display: flex;
     flex-direction: column;
+    flex-shrink: 0; /* Prevent the phone from shrinking */
 }
 
 .screen-border {
@@ -59,7 +63,7 @@ body {
     min-height: 0;
 }
 
-/* --- Screen and Transition Styles (Corrected) --- */
+/* --- Screen and Transition Styles --- */
 .screen {
     position: relative;
     overflow: hidden;
@@ -83,7 +87,6 @@ body {
     overflow-y: auto;
 }
 
-/* Special case for boot screen to center content */
 #boot-screen {
     display: flex;
     flex-direction: column;
@@ -94,33 +97,12 @@ body {
 }
 
 /* Animation Classes */
-.right-enter {
-    transform: translateX(100%);
-}
-
-.right-enter-active {
-    transform: translateX(0);
-    transition: transform 300ms ease-in-out;
-}
-
-.right-exit-active {
-    transform: translateX(-100%);
-    transition: transform 300ms ease-in-out;
-}
-
-.left-enter {
-    transform: translateX(-100%);
-}
-
-.left-enter-active {
-    transform: translateX(0);
-    transition: transform 300ms ease-in-out;
-}
-
-.left-exit-active {
-    transform: translateX(100%);
-    transition: transform 300ms ease-in-out;
-}
+.right-enter { transform: translateX(100%); }
+.right-enter-active { transform: translateX(0); transition: transform 300ms ease-in-out; }
+.right-exit-active { transform: translateX(-100%); transition: transform 300ms ease-in-out; }
+.left-enter { transform: translateX(-100%); }
+.left-enter-active { transform: translateX(0); transition: transform 300ms ease-in-out; }
+.left-exit-active { transform: translateX(100%); transition: transform 300ms ease-in-out; }
 
 /* --- Other Styles --- */
 #game-canvas {
@@ -129,18 +111,9 @@ body {
     height: 100%;
 }
 
-.page-container::-webkit-scrollbar {
-    width: 8px;
-}
-
-.page-container::-webkit-scrollbar-track {
-    background: #2d2c54;
-}
-
-.page-container::-webkit-scrollbar-thumb {
-    background: var(--text-accent);
-    border-radius: 5px;
-}
+.page-container::-webkit-scrollbar { width: 8px; }
+.page-container::-webkit-scrollbar-track { background: #2d2c54; }
+.page-container::-webkit-scrollbar-thumb { background: var(--text-accent); border-radius: 5px; }
 
 .screen-header {
     display: flex;
@@ -151,15 +124,8 @@ body {
     margin-bottom: 10px;
 }
 
-.signal-bar,
-.battery-level,
-.battery-icon::after {
-    background-color: var(--text-accent);
-}
-
-.battery-icon {
-    border: 2px solid var(--text-accent);
-}
+.signal-bar, .battery-level, .battery-icon::after { background-color: var(--text-accent); }
+.battery-icon { border: 2px solid var(--text-accent); }
 
 .content-title {
     font-weight: bold;
@@ -170,14 +136,8 @@ body {
     padding-bottom: 5px;
 }
 
-.menu-item {
-    padding: 5px 0;
-}
-
-.menu-item.selected {
-    background-color: var(--text-accent);
-    color: var(--screen-bg);
-}
+.menu-item { padding: 5px 0; }
+.menu-item.selected { background-color: var(--text-accent); color: var(--screen-bg); }
 
 .keypad {
     margin-top: 20px;
@@ -197,21 +157,11 @@ body {
     font-family: 'Press Start 2P', cursive;
 }
 
-.key:active {
-    transform: translateY(2px);
-    box-shadow: 0 2px var(--key-shadow);
-}
+.key:active { transform: translateY(2px); box-shadow: 0 2px var(--key-shadow); }
+.nav-key { background-color: var(--nav-key); color: white; box-shadow: 0 4px var(--nav-key-shadow); }
+.nav-key:active { box-shadow: 0 2px var(--nav-key-shadow); }
 
-.nav-key {
-    background-color: var(--nav-key);
-    color: white;
-    box-shadow: 0 4px var(--nav-key-shadow);
-}
-
-.nav-key:active {
-    box-shadow: 0 2px var(--nav-key-shadow);
-}
-
+/* UPDATED: Instruction box no longer needs absolute positioning */
 .instruction-box {
     width: 240px;
     padding: 20px;
@@ -221,6 +171,7 @@ body {
     box-shadow: 0 0 20px rgba(0, 246, 255, 0.15);
     color: var(--instruction-text);
     font-family: monospace, sans-serif;
+    flex-shrink: 0; /* Prevent the box from shrinking */
 }
 
 .instruction-box h3 {
@@ -234,189 +185,56 @@ body {
     border-bottom: 1px dashed var(--nav-key);
 }
 
-.instruction-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-}
+.instruction-item { display: flex; align-items: center; margin-bottom: 20px; }
+.instruction-item .action { flex-grow: 1; font-size: 14px; margin-left: 15px; }
+.key-icon { display: inline-flex; justify-content: center; align-items: center; min-width: 30px; height: 30px; padding: 0 5px; border: 1px solid var(--nav-key-shadow); border-radius: 5px; background: var(--nav-key); box-shadow: 0 2px 0 var(--nav-key-shadow); font-size: 16px; font-weight: bold; color: white; }
+.keys-group { display: flex; gap: 6px; }
+.enter-key { font-size: 20px; }
+.space-bar { width: 100px; }
 
-.instruction-item .action {
-    flex-grow: 1;
-    font-size: 14px;
-    margin-left: 15px;
-}
+.signal, .battery { display: flex; align-items: flex-end; }
+.signal-bar { width: 5px; margin-left: 2px; }
+.battery-icon { width: 25px; height: 12px; border-radius: 3px; position: relative; }
+.battery-icon::after { content: ''; position: absolute; right: -5px; top: 2px; width: 3px; height: 4px; border-top-right-radius: 2px; border-bottom-right-radius: 2px; }
+.battery-level { height: 100%; width: 80%; }
 
-.key-icon {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    min-width: 30px;
-    height: 30px;
-    padding: 0 5px;
-    border: 1px solid var(--nav-key-shadow);
-    border-radius: 5px;
-    background: var(--nav-key);
-    box-shadow: 0 2px 0 var(--nav-key-shadow);
-    font-size: 16px;
-    font-weight: bold;
-    color: white;
-}
+.center-nav-cluster { grid-column: 2; display: flex; flex-direction: column; gap: 5px; align-items: center; }
+.select-key { width: 60px; height: 40px; border-radius: 8px; }
+.arrow-key { width: 40px; height: 30px; border-radius: 6px; }
+.side-keys { display: flex; flex-direction: column; justify-content: center; gap: 10px; }
 
-.keys-group {
-    display: flex;
-    gap: 6px;
-}
+.list-item { margin-bottom: 10px; }
+.list-title { font-weight: bold; text-transform: uppercase; }
+.list-subtitle { font-size: 10px; opacity: 0.8; margin-bottom: 5px; }
+.list-desc { font-size: 10px; }
+.link { text-decoration: underline; cursor: pointer; color: var(--text-accent); }
 
-.enter-key {
-    font-size: 20px;
-}
+#hands-svg { width: 150px; height: auto; }
+.hand { animation-duration: 1.5s; animation-fill-mode: forwards; animation-timing-function: ease-in-out; }
+#hand-left { animation-name: move-left; }
+#hand-right { animation-name: move-right; }
+#boot-text { margin-top: 20px; font-size: 14px; opacity: 0; animation: fadeIn 1s 1.5s forwards; }
 
-.space-bar {
-    width: 100px;
-}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes move-left { from { transform: translateX(-50px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+@keyframes move-right { from { transform: translateX(50px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
 
-.signal,
-.battery {
-    display: flex;
-    align-items: flex-end;
-}
-
-.signal-bar {
-    width: 5px;
-    margin-left: 2px;
-}
-
-.battery-icon {
-    width: 25px;
-    height: 12px;
-    border-radius: 3px;
-    position: relative;
-}
-
-.battery-icon::after {
-    content: '';
-    position: absolute;
-    right: -5px;
-    top: 2px;
-    width: 3px;
-    height: 4px;
-    border-top-right-radius: 2px;
-    border-bottom-right-radius: 2px;
-}
-
-.battery-level {
-    height: 100%;
-    width: 80%;
-}
-
-.center-nav-cluster {
-    grid-column: 2;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    align-items: center;
-}
-
-.select-key {
-    width: 60px;
-    height: 40px;
-    border-radius: 8px;
-}
-
-.arrow-key {
-    width: 40px;
-    height: 30px;
-    border-radius: 6px;
-}
-
-.side-keys {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 10px;
-}
-
-.list-item {
-    margin-bottom: 10px;
-}
-
-.list-title {
-    font-weight: bold;
-    text-transform: uppercase;
-}
-
-.list-subtitle {
-    font-size: 10px;
-    opacity: 0.8;
-    margin-bottom: 5px;
-}
-
-.list-desc {
-    font-size: 10px;
-}
-
-.link {
-    text-decoration: underline;
-    cursor: pointer;
-    color: var(--text-accent);
-}
-
-#hands-svg {
-    width: 150px;
-    height: auto;
-}
-
-.hand {
-    animation-duration: 1.5s;
-    animation-fill-mode: forwards;
-    animation-timing-function: ease-in-out;
-}
-
-#hand-left {
-    animation-name: move-left;
-}
-
-#hand-right {
-    animation-name: move-right;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
+/*
+ * --- NEW: Media Query for Responsiveness ---
+ * On screens 768px or less, stack the elements vertically.
+ */
+@media (max-width: 768px) {
+    .main-container {
+        flex-direction: column; /* Stack items vertically */
+        padding: 1rem;
+        gap: 2rem;
     }
 
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes move-left {
-    from {
-        transform: translateX(-50px);
-        opacity: 0;
+    .instruction-box {
+        order: 2; /* Make instruction box appear after the phone */
     }
 
-    to {
-        transform: translateX(0);
-        opacity: 1;
+    #root {
+        order: 1; /* Make phone appear first */
     }
-}
-
-@keyframes move-right {
-    from {
-        transform: translateX(50px);
-        opacity: 0;
-    }
-
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
-#boot-text {
-    margin-top: 20px;
-    font-size: 14px;
-    opacity: 0;
-    animation: fadeIn 1s 1.5s forwards;
 }
