@@ -22,7 +22,7 @@ const portfolioData = {
         proficient: ['Python', 'ReactJS'],
         knowledge: ['C++', 'Java', 'C', 'Javascript', 'TypeScript', 'HTML', 'CSS', 'REST APIs', 'SQL', 'NoSQL', 'Git', 'GitHub']
     },
-    certificates: ['Oracle Cloud AI Foundations Associate', 'Oracle Cloud Generative AI Professional']
+    certificates: ['Oracle Cloud AI Foundations Associate', 'Oracle Cloud Generative AI Professional', 'Nvidia Certification Building LLM Applications With Prompt Engineering']
 };
 
 const menuItems = ['About', 'Education', 'Experience', 'Projects', 'Skills', 'Certificates', 'Contact', 'Snake Game'];
